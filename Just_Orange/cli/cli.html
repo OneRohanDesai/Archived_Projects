@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Just Orange – CLI</title>
+  <style>
+    :root { --o: #FF6B35; --do: #E55A2B; --l: #FFF8F0; }
+    body { margin:0; font-family: 'Courier New', monospace; background:#1E1E1E; color:#FFF; min-height:100vh; display:flex; flex-direction:column; }
+    .header { background:var(--o); padding:3rem; text-align:center; }
+    h1 { font-size:3.5rem; }
+    .content { flex:1; padding:4rem 2rem; max-width:900px; margin:0 auto; }
+    pre { background:#111; padding:2rem; border-radius:16px; overflow-x:auto; font-size:1.1rem; border:2px solid var(--o); }
+    .btn { background:var(--o); color:white; padding:1rem 2rem; border:none; border-radius:50px; font-size:1.2rem; cursor:pointer; margin:2rem 0; }
+    .btn:hover { background:var(--do); }
+    footer { background:#111; padding:2rem; text-align:center; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Just Orange CLI</h1>
+    <p>Zero cost • Runs locally • SRE playground in your terminal</p>
+  </div>
+
+  <div class="content">
+    <h2>One command. One perfect dish.</h2>
+    <pre>
+./justorange.sh
+# Ingredients → tomato, rice, onion, garlic
+# Taste → spicy
+# Time → 20 minutes total
+# Allergies → none
+
+Tomato Garlic Rice
+• 1 cup rice        • 3 tomatoes
+• 4 garlic cloves   • 1 onion
+• Chili flakes      • Olive oil
+
+1. Fry garlic + onion in oil until golden
+2. Add chopped tomatoes, cook 5 min
+3. Mix in rice + 2 cups water + chili
+4. Simmer 12 min. Done.
+    </pre>
+    <p>Full local observability stack (Prometheus + Grafana + Loki + Vault) runs in background. Watch your SLOs while you eat.</p>
+    <a href="/"><button class="btn">Back to Home</button></a>
+  </div>
+
+  <footer>Just Orange • Terminal Edition</footer>
+</body>
+</html>

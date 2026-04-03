@@ -1,0 +1,11 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    { "Effect": "Allow", "Action": ["logs:CreateLogGroup","logs:CreateLogStream","logs:PutLogEvents"], "Resource": "*" },
+    { "Effect": "Allow", "Action": ["s3:GetObject","s3:GetObjectVersion","s3:PutObject"], "Resource": ["arn:aws:s3:::aesthete-source-artifacts/*","arn:aws:s3:::aesthete-frontend/*","arn:aws:s3:::aesthete-build-artifacts/*"] },
+    { "Effect": "Allow", "Action": ["s3:ListBucket"], "Resource": ["arn:aws:s3:::aesthete-frontend","arn:aws:s3:::aesthete-source-artifacts"] },
+    { "Effect": "Allow", "Action": ["lambda:UpdateFunctionCode","lambda:GetFunction"], "Resource": "arn:aws:lambda:*:*:function:aesthete-backend" },
+    { "Effect": "Allow", "Action": ["codepipeline:PutJobSuccessResult","codepipeline:PutJobFailureResult"], "Resource": "*" }
+  ]
+}
+

@@ -1,0 +1,61 @@
+[
+  {"waiter_id": "W1", "table_id": "t01"},
+  {"waiter_id": "W1", "table_id": "t02"},
+  {"waiter_id": "W1", "table_id": "t03"},
+
+  {"waiter_id": "W2", "table_id": "t04"},
+  {"waiter_id": "W2", "table_id": "t05"},
+  {"waiter_id": "W2", "table_id": "t06"},
+
+  {"waiter_id": "W3", "table_id": "t07"},
+  {"waiter_id": "W3", "table_id": "t08"},
+  {"waiter_id": "W3", "table_id": "t09"},
+
+  {"waiter_id": "W4", "table_id": "t10"},
+  {"waiter_id": "W4", "table_id": "t11"},
+  {"waiter_id": "W4", "table_id": "t12"},
+
+  {"waiter_id": "W5", "table_id": "t13"},
+  {"waiter_id": "W5", "table_id": "t14"},
+  {"waiter_id": "W5", "table_id": "t15"},
+
+  {"waiter_id": "W6", "table_id": "t16"},
+  {"waiter_id": "W6", "table_id": "t17"},
+  {"waiter_id": "W6", "table_id": "t18"},
+
+  {"waiter_id": "W7", "table_id": "t19"},
+  {"waiter_id": "W7", "table_id": "t20"},
+  {"waiter_id": "W7", "table_id": "t21"},
+
+  {"waiter_id": "W8", "table_id": "t22"},
+  {"waiter_id": "W8", "table_id": "t23"},
+  {"waiter_id": "W8", "table_id": "t24"},
+
+  {"waiter_id": "W9", "table_id": "t25"},
+  {"waiter_id": "W9", "table_id": "t26"},
+  {"waiter_id": "W9", "table_id": "t27"},
+
+  {"waiter_id": "W10", "table_id": "t28"},
+  {"waiter_id": "W10", "table_id": "t29"},
+  {"waiter_id": "W10", "table_id": "t30"},
+
+  {"waiter_id": "W11", "table_id": "t31"},
+  {"waiter_id": "W11", "table_id": "t32"},
+  {"waiter_id": "W11", "table_id": "t33"},
+
+  {"waiter_id": "W12", "table_id": "t34"},
+  {"waiter_id": "W12", "table_id": "t35"},
+  {"waiter_id": "W12", "table_id": "t36"},
+
+  {"waiter_id": "W13", "table_id": "t37"},
+  {"waiter_id": "W13", "table_id": "t38"},
+  {"waiter_id": "W13", "table_id": "t39"},
+
+  {"waiter_id": "W14", "table_id": "t40"},
+  {"waiter_id": "W14", "table_id": "t41"},
+  {"waiter_id": "W14", "table_id": "t42"},
+
+  {"waiter_id": "W15", "table_id": "t43"},
+  {"waiter_id": "W15", "table_id": "t44"},
+  {"waiter_id": "W15", "table_id": "t45"}
+]

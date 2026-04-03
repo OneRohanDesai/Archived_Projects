@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ladybug | Just Orange</title>
+  <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
+  <style>
+    :root { --orange: #FF6B35; --dark: #1A1A1A; --light: #FFFBF7; --gray: #555; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    header {
+      text-align: center;
+      padding: 7rem 2rem 5rem;
+      background: linear-gradient(to bottom, white 0%, var(--light) 100%);
+    }
+    h1 {
+      font-size: 6.5rem;
+      font-weight: 900;
+      letter-spacing: -4px;
+      background: linear-gradient(90deg, var(--orange), #FF8C42);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+    }
+    .tagline {
+      font-size: 1.75rem;
+      color: var(--gray);
+      max-width: 720px;
+      margin: 0 auto;
+      font-weight: 400;
+    }
+    .features {
+      max-width: 1400px;
+      margin: 6rem auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3rem;
+      padding: 0 3rem;
+    }
+    .feat {
+      text-align: center;
+      padding: 2rem;
+    }
+    .feat h3 {
+      font-size: 1.6rem;
+      margin: 1.2rem 0 0.8rem;
+      color: var(--orange);
+    }
+    .feat p {
+      color: var(--gray);
+      font-size: 1.1rem;
+    }
+    .variants {
+      max-width: 1600px;
+      margin: 8rem auto 6rem;
+      padding: 0 3rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+    .variant {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      background: white;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(255,107,53,0.18);
+      transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .variant::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,107,53,0.08) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+    }
+    .variant:hover {
+      transform: translateY(-20px) scale(1.02);
+      box-shadow: 0 50px 100px rgba(255,107,53,0.28);
+    }
+    .variant:hover::before { opacity: 1; }
+    .variant img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .variant:hover img { transform: scale(1.08); }
+    .content { padding: 2.4rem; }
+    .variant h2 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--orange);
+      margin-bottom: 0.8rem;
+    }
+    .variant p {
+      color: #444;
+      font-size: 1.15rem;
+      margin-bottom: 1.8rem;
+      line-height: 1.6;
+    }
+    .label {
+      background: linear-gradient(90deg, var(--orange), #FF8C42);
+      color: white;
+      padding: 0.75rem 1.6rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      display: inline-block;
+    }
+    footer {
+      text-align: center;
+      padding: 4rem 2rem 3rem;
+      color: #888;
+      font-size: 0.95rem;
+    }
+    @media (max-width: 1100px) {
+      .features { grid-template-columns: repeat(2, 1fr); padding: 0 2rem; }
+      .variants { grid-template-columns: 1fr; padding: 0 2rem; }
+    }
+    @media (max-width: 640px) {
+      h1 { font-size: 4.5rem; }
+      .tagline { font-size: 1.4rem; }
+      .features { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Just Orange</h1>
+    <p class="tagline">You name what’s in your kitchen. I name the one perfect dish.<br>No options. No confusion. Just dinner.</p>
+  </header>
+
+  <div class="features">
+    <div class="feat">
+      <h3>One Perfect Recipe</h3>
+      <p>No lists. No “choose your adventure”. Just the single best dish possible.</p>
+    </div>
+    <div class="feat">
+      <h3>Time & Allergy Aware</h3>
+      <p>Tell me how long you have and what you can’t eat - I’ll respect both.</p>
+    </div>
+    <div class="feat">
+      <h3>Zero Decision Fatigue</h3>
+      <p>Because choosing between 47 recipes is harder than cooking.</p>
+    </div>
+    <div class="feat">
+      <h3>Actually Delicious</h3>
+      <p>Powered by real taste understanding - not random combinations.</p>
+    </div>
+  </div>
+
+  <div class="variants">
+    <a href="/justorange/live" class="variant">
+      <img src="https://images.unsplash.com/photo-1618304925022-f50a402ae065?w=800&h=500&fit=crop" alt="Serverless">
+      <div class="content">
+        <h2>Live Edition</h2>
+        <p>Available 24x7. Easily generate any recipe. Pure magic. Let's start cooking.</p>
+        <span class="label">Free but a bit slow</span>
+      </div>
+    </a>
+
+    <a href="/justorange/cli" class="variant">
+      <img src="https://images.unsplash.com/photo-1607743386830-f198fbd7f9c4?w=800&h=500&fit=crop" alt="CLI">
+      <div class="content">
+        <h2>CLI Edition</h2>
+        <p>Run in your terminal. Private. Instant. But I ain't paying for you in this version, go and get your own chatgpt credits.</p>
+        <span class="label">Just for geeks, normal people can ignore it</span>
+      </div>
+    </a>
+  </div>
+
+  <footer>
+    <div style="text-align:center; padding:7rem 2rem 6rem; background:var(--light);">
+      <p style="font-size:1.18rem; color:#444; max-width:760px; margin:0 auto 1rem;">
+        Just Orange uses real ChatGPT calls to create every recipe.<br>
+        The servers are free — but the AI brain costs a few cents per meal.
+      </p>
+
+      <!-- Donation status – you manually change the background color -->
+      <div style="display:inline-block; background:#4CAF50; color:white; padding:0.4rem 1.6rem; font-weight:700; font-size:0.95rem; margin-bottom:1rem;">
+        OPEN TO DONATIONS
+      </div>
+      <!-- Change background here:
+           #4CAF50 → green = open
+           #FF9800 → orange = barely enough
+           #F44336 → red = closed -->
+
+      <p style="color:#666; margin-bottom:1.8rem; font-size:1rem;">
+        If it saved your dinner tonight, consider keeping the kitchen lights on.
+      </p>
+
+      <a href="https://buymeacoffee.com/1ladybug" target="_blank"
+         style="display:inline-block; background:#FF6B35; color:white; font-size:1.4rem; font-weight:800;
+                padding:1.2rem 3.2rem; border-radius:50px; text-decoration:none;
+                box-shadow:0 15px 35px rgba(255,107,53,0.35); transition:all 0.3s;">
+        Donate for stress free dinner
+      </a>
+
+      <div style="margin-top:4rem; color:#999; font-size:0.92rem;">
+        Just Orange • 2025 • Made because deciding what to eat is hard enough
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

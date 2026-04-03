@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="velvet">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ranked | Film Connoisseur</title>
+  <meta name="cf-fonts" content="off">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://cdn.film-connoisseur.rohandesai.in">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/pagination.css" />
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo-crest">◈</div>
+      <div>
+        <h1 class="brand-title">FILM<br>CONNOISSEUR</h1>
+      </div>
+    </div>
+    <nav class="topnav">
+      <div class="suggest-box">
+        <button id="mailBtn" class="suggest-btn" title="Send suggestion"></button>
+      </div>
+      <a href="index.html" class="nav-link">Gallery</a>
+      <a href="ranked.html" class="nav-link active">Ranked</a>
+      <a href="add.html" class="nav-link">Add Movie</a>
+      <button id="hamburger2" class="hamburger" aria-label="Toggle menu">☰</button>
+    </nav>
+  </header>
+  <main class="main">
+    <section class="search-row">
+      <input id="searchInput" class="search-input" type="search" placeholder="Search title or director…" aria-label="Search movies" />
+    </section>
+    <section id="rankedList" class="ranked-list" aria-live="polite">
+    </section>
+    <section class="pagination-controls" aria-label="Pagination">
+      <button id="prevPage" class="btn-pagination" disabled>← Previous</button>
+      <div id="pageButtonsContainer" class="page-buttons-container">
+      </div>
+      <button id="nextPage" class="btn-pagination">Next →</button>
+    </section>
+  </main>
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" role="document">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <div class="modal-body">
+        <img id="modalPoster" alt="" class="modal-poster" />
+        <div class="modal-meta">
+          <h3 id="modalTitle" class="serif"></h3>
+          <p class="meta-line"><strong>Director:</strong> <span id="modalDirector"></span></p>
+          <p class="meta-line"><strong>Year:</strong> <span id="modalYear"></span></p>
+          <p class="meta-line"><strong>Rank:</strong> <span id="modalRank"></span> — <strong>Score:</strong> <span id="modalScore"></span></p>
+          <div id="ratingsGrid" class="ratings-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="navOverlay2" class="nav-overlay">
+    <nav class="overlay-menu">
+      <a href="index.html">Gallery</a>
+      <a href="ranked.html">Ranked</a>
+      <a href="add.html">Add Movie</a>
+    </nav>
+  </div>
+  <div id="mailModal" class="modal" aria-hidden="true">
+  <div class="modal-card">
+    <button class="modal-close" id="mailClose">✕</button>
+      <div class="modal-body" style="flex-direction:column; gap:16px;">
+        <h3 class="serif">Suggest a Movie</h3>
+        <p class="muted">
+          We’d love to hear your movie recommendations! Share the films you believe deserve a place on this platform, and tell us why they stand out—especially in terms of showcasing the art of filmmaking at its finest.<br><br>
+
+          All suggested movies will be added to our review queue. Our team will personally watch each one and aim to include it on the platform as soon as possible.
+        </p>
+        <a 
+          href="mailto:pro.rohandesai@gmail.com?subject=Movie Suggestion&body=Movie:%0D%0A%0D%0AWhy this deserves to be on the list:%0D%0A"
+          class="btn"
+        >
+          Send Email
+        </a>
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/ranked.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const hamburger = document.getElementById('hamburger2');
+      const overlay = document.getElementById('navOverlay2');
+      if (hamburger && overlay) {
+        hamburger.addEventListener('click', () => {
+          const isOpen = overlay.hasAttribute('open');
+          if (isOpen) {
+            overlay.removeAttribute('open');
+          } else {
+            overlay.setAttribute('open', '');
+          }
+        });
+        overlay.addEventListener('click', (e) => {
+          if (e.target === overlay) {
+            overlay.removeAttribute('open');
+          }
+        });
+        document.addEventListener('keyup', (e) => {
+          if (e.key === 'Escape' && overlay.hasAttribute('open')) {
+            overlay.removeAttribute('open');
+          }
+        });
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("mailBtn")
+      const modal = document.getElementById("mailModal")
+      const close = document.getElementById("mailClose")
+
+      if (!btn || !modal || !close) return
+
+      btn.addEventListener("click", () => {
+        modal.setAttribute("aria-hidden", "false")
+      })
+
+      close.addEventListener("click", () => {
+        modal.setAttribute("aria-hidden", "true")
+      })
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.setAttribute("aria-hidden", "true")
+        }
+      })
+
+      document.addEventListener("keyup", (e) => {
+        if (e.key === "Escape") {
+          modal.setAttribute("aria-hidden", "true")
+        }
+      })
+    })
+  </script>
+</body>
+</html>

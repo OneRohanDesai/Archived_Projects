@@ -1,0 +1,51 @@
+{
+  "pipeline": {
+    "name": "aesthete-pipeline",
+    "roleArn": "REPLACE_ME_IAM_PIPELINE_ROLE_ARN",
+    "artifactStore": {
+      "type": "S3",
+      "location": "aesthete-source-artifacts"
+    },
+    "stages": [
+      {
+        "name": "Source",
+        "actions": [
+          {
+            "name": "SourceFromWebhook",
+            "actionTypeId": {
+              "category": "Source",
+              "owner": "AWS",
+              "provider": "S3",
+              "version": "1"
+            },
+            "outputArtifacts": [{ "name": "SourceOutput" }],
+            "configuration": {
+              "S3Bucket": "aesthete-source-artifacts",
+              "S3ObjectKey": "sourcehut.zip"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Build",
+        "actions": [
+          {
+            "name": "BuildProject",
+            "actionTypeId": {
+              "category": "Build",
+              "owner": "AWS",
+              "provider": "CodeBuild",
+              "version": "1"
+            },
+            "inputArtifacts": [{ "name": "SourceOutput" }],
+            "outputArtifacts": [{ "name": "BuildOutput" }],
+            "configuration": {
+              "ProjectName": "aesthete-build"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+

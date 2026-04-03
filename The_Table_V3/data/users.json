@@ -1,0 +1,17 @@
+[
+  {"id": "W1", "name": "Alice", "role": "waiter"},
+  {"id": "W2", "name": "Bob", "role": "waiter"},
+  {"id": "W3", "name": "Charlie", "role": "waiter"},
+  {"id": "W4", "name": "Diana", "role": "waiter"},
+  {"id": "W5", "name": "Eve", "role": "waiter"},
+  {"id": "W6", "name": "Frank", "role": "waiter"},
+  {"id": "W7", "name": "Grace", "role": "waiter"},
+  {"id": "W8", "name": "Hank", "role": "waiter"},
+  {"id": "W9", "name": "Ivy", "role": "waiter"},
+  {"id": "W10", "name": "Jack", "role": "waiter"},
+  {"id": "W11", "name": "Kate", "role": "waiter"},
+  {"id": "W12", "name": "Leo", "role": "waiter"},
+  {"id": "W13", "name": "Mia", "role": "waiter"},
+  {"id": "W14", "name": "Noah", "role": "waiter"},
+  {"id": "W15", "name": "Olivia", "role": "waiter"}
+]

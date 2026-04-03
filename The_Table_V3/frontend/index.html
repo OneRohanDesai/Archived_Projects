@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Table V3 | Floor Manager</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>The Table <span class="version">V3</span></h1>
+      <p>Floor Manager Dashboard</p>
+      <nav class="role-nav">
+        <a href="/" class="active">Floor</a>
+        <a href="/executive.html">Executive</a>
+        <a href="/head_chef.html">Head Chef</a>
+      </nav>
+    </header>
+
+    <div id="tables-grid"><p style="text-align:center; color:#666; margin:2rem;">Loading...</p></div>
+  </div>
+
+  <script src="/static/js/socket.js"></script>
+  <script>
+    const socket = new RealtimeSocket();
+    let tables = [], orders = [];
+
+    socket.on('tables_updated', d => { if (Array.isArray(d)) { tables = d; renderTables(); }});
+    socket.on('orders_updated', d => { if (Array.isArray(d)) { orders = d; renderTables(); }});
+
+    function loadData() {
+      Promise.all([
+        fetch('/data/tables.json').then(r => r.json()),
+        fetch('/data/orders.json').then(r => r.json())
+      ]).then(([t, o]) => {
+        tables = t; orders = o; renderTables();
+      });
+    }
+
+    function renderTables() {
+      const grid = document.getElementById('tables-grid');
+      grid.innerHTML = tables.map(t => {
+        const activeOrder = orders.find(o => o.table_id === t.id && !['delivered'].includes(o.status));
+        const status = t.status;
+        const isEating = activeOrder && activeOrder.status === 'delivered';
+        const bg = status === 'vacant' ? '#4ade80' : isEating ? '#4ade80' : '#f87171';
+        return `
+          <div class="table-card" style="border-color: ${bg};" ondblclick="openOrder('${t.id}', '${t.number}')">
+            <h3>${t.number}</h3>
+            <p>${t.pax || 0}/${t.seats} guests</p>
+            ${status === 'occupied' ? `<p>Since: ${timeAgo(t.occupied_since)}</p>` : ''}
+            ${activeOrder ? `<p class="order-status">${activeOrder.status}</p>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openOrder(tableId, tableName) {
+      const table = tables.find(t => t.id === tableId);
+      if (table.status === 'vacant') {
+        const pax = prompt(`Seat guests at ${tableName}? How many?`, 2);
+        if (!pax) return;
+        table.status = 'occupied';
+        table.pax = parseInt(pax);
+        table.occupied_since = new Date().toISOString();
+        saveTables();
+        return;
+      }
+
+      // Only allow order if occupied and no active order
+      const activeOrder = orders.find(o => o.table_id === tableId && !['delivered'].includes(o.status));
+      if (activeOrder && activeOrder.status !== 'delivered') {
+        alert("Order already in progress");
+        return;
+      }
+
+      const modal = document.createElement('div');
+      modal.className = 'modal';
+      modal.innerHTML = `
+        <div class="modal-content">
+          <h2>Order for ${tableName} (${table.pax} pax)</h2>
+          <div id="menu-items">Loading...</div>
+          <button onclick="submitOrder('${tableId}', this.closest('.modal-content'))">Submit</button>
+          <button onclick="this.closest('.modal').remove()">Cancel</button>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      loadMenuForOrder();
+    }
+
+    function loadMenuForOrder() {
+      fetch('/data/menu.json').then(r => r.json()).then(menu => {
+        document.getElementById('menu-items').innerHTML = menu.map(d => `
+          <label><input type="checkbox" value="${d.id}"> ${d.name} - $${d.price}</label><br>
+        `).join('');
+      });
+    }
+
+    function submitOrder(tableId, modal) {
+      const items = Array.from(modal.querySelectorAll('input:checked')).map(i => i.value);
+      if (items.length === 0) return alert("Select at least one item");
+
+      const order = {
+        id: "o" + Date.now().toString(36),
+        table_id: tableId,
+        items,
+        status: "new",
+        priority: false,
+        timestamps: { ordered: new Date().toISOString() },
+        subtasks: {}
+      };
+
+      orders.push(order);
+      saveOrders(() => modal.closest('.modal').remove());
+    }
+
+    function saveTables() {
+      fetch('/data/tables.json', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(tables) });
+    }
+
+    function saveOrders(cb) {
+      fetch('/data/orders.json', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orders)
+      }).then(() => {
+        if (cb) cb();
+      }).catch(err => console.error("Save failed:", err));
+    }
+
+    function timeAgo(ts) {
+      if (!ts) return '';
+      const sec = Math.floor((Date.now() - new Date(ts)) / 1000);
+      return sec < 60 ? `${sec}s ago` : `${Math.floor(sec/60)}m ago`;
+    }
+
+    loadData();
+  </script>
+</body>
+</html>

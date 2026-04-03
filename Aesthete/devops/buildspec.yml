@@ -1,0 +1,45 @@
+version: 0.2
+
+env:
+  variables:
+    FRONTEND_DIR: "frontend"
+    BACKEND_DIR: "backend"
+    BACKEND_ZIP: "backend.zip"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - echo "Install phase"
+      - node --version || true
+      - npm --version || true
+  pre_build:
+    commands:
+      - echo "Pre-build: install backend deps if present"
+      - if [ -f "$BACKEND_DIR/package.json" ]; then cd $BACKEND_DIR && npm ci --silent || true && cd - ; fi
+  build:
+    commands:
+      - echo "Packaging backend into $BACKEND_ZIP"
+      - rm -f $BACKEND_ZIP
+      - cd $BACKEND_DIR || exit 0
+      - zip -r ../$BACKEND_ZIP . -x node_modules/**\* || true
+      - cd - || true
+      - echo "Frontend files prepared (no build step)"
+  post_build:
+    commands:
+      - echo "Build finished"
+artifacts:
+  files:
+    - backend.zip
+  discard-paths: yes
+  secondary-artifacts:
+    frontend_artifact:
+      base-directory: frontend
+      files:
+        - '**/*'
+    backend_artifact:
+      base-directory: .
+      files:
+        - backend.zip
+      discard-paths: yes

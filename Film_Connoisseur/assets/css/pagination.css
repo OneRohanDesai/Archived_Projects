@@ -1,0 +1,77 @@
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px 16px;
+  flex-wrap: wrap;
+}
+
+.btn-pagination {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  color: var(--accent-white);
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-pagination:hover:not(:disabled) {
+  background: var(--glass-2);
+  transform: translateY(-2px);
+}
+
+.btn-pagination:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.page-buttons-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 8px;
+  padding: 8px 0;
+  scroll-behavior: smooth;
+  max-width: 80vw;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-gold) var(--maroon-2);
+}
+
+.page-buttons-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.page-buttons-container::-webkit-scrollbar-thumb {
+  background: var(--accent-gold);
+  border-radius: 3px;
+}
+
+.range-btn {
+  flex: 0 0 auto;
+  min-width: 90px;
+  padding: 10px 14px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--muted);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.range-btn:hover {
+  background: var(--glass-2);
+  color: var(--accent-white);
+}
+
+.range-btn.active {
+  background: linear-gradient(135deg, var(--maroon-3), var(--maroon-2));
+  color: var(--accent-white);
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 12px rgba(201, 169, 110, 0.3);
+}

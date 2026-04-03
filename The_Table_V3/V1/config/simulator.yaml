@@ -1,0 +1,21 @@
+speed_factor: 60
+tables: 32
+chefs: 8
+waiters: 8
+order_takers: 4
+menu_items:
+  masala_dosa:
+    cooking: { mean: 180, std: 30 }
+    price: 80
+  cheese_dosa:
+    cooking: { mean: 240, std: 40 }
+    price: 120
+  onion_dosa:
+    cooking: { mean: 160, std: 25 }
+    price: 90
+distributions:
+  menu_decision: { min: 30, max: 90 }
+  serving: { min: 20, max: 40 }
+  eating: { mean: 600, std: 120 }
+  payment: { min: 60, max: 120 }
+  customer_arrival: { min: 200, max: 500 }

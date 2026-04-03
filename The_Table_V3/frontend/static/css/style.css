@@ -1,0 +1,112 @@
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Segoe UI', sans-serif; background: #0f0f1a; color: #e0e0e0; }
+.container { max-width: 1200px; margin: auto; padding: 2rem; }
+header { text-align: center; margin-bottom: 2rem; }
+h1 { font-size: 2.5rem; color: #d4af37; }
+.version { font-size: 0.8rem; color: #888; }
+.role-nav { margin: 1rem 0; }
+.role-nav a { margin: 0 1rem; color: #d4af37; text-decoration: none; font-weight: bold; }
+.role-nav a.active { color: #fff; text-decoration: underline; }
+
+#tables-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
+.table-card { background: #1a1a2e; border: 2px solid #333; border-radius: 12px; padding: 1rem; text-align: center; cursor: pointer; transition: border-color 0.3s; }
+.table-card:hover { transform: translateY(-4px); }
+.table-card.vacant { border-color: #4ade80; }
+.table-card.occupied { border-color: #f87171; }
+.order-btn { font-size: 0.8rem; color: #d4af37; cursor: pointer; margin-top: 0.5rem; }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+.panel { background: #1a1a2e; padding: 1.5rem; border-radius: 12px; border: 1px solid #333; }
+.dish-card { background: #16213e; padding: 1rem; margin: 1rem 0; border-radius: 8px; border: 1px solid #444; }
+.dish-header { display: flex; justify-content: space-between; align-items: center; }
+.prep-steps { min-height: 60px; border: 2px dashed #444; border-radius: 8px; padding: 0.5rem; margin: 0.5rem 0; }
+.step { background: #0f3460; padding: 0.5rem; margin: 0.3rem; border-radius: 6px; cursor: move; display: flex; justify-content: space-between; font-size: 0.9rem; }
+.step small { color: #aaa; }
+
+.order-card { background: #1a1a2e; padding: 1rem; margin: 1rem 0; border-radius: 8px; border: 1px solid #444; }
+.order-card.priority { border-color: #f87171; }
+.order-header { display: flex; justify-content: space-between; }
+.order-status { font-size: 0.8rem; color: #aaa; margin-top: 0.3rem; }
+.actions button { margin: 0 0.3rem; padding: 0.3rem 0.6rem; }
+
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.modal-content { background: #1a1a2e; padding: 2rem; border-radius: 12px; width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto; }
+.modal-content label { display: block; margin: 0.5rem 0; }
+
+#kitchen-queue .order-card { background: #16213e; border: 1px solid #444; padding: 1rem; margin: 1rem 0; border-radius: 8px; }
+
+.station-nav { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+.station-btn { padding: 0.5rem 1rem; background: #16213e; border: 1px solid #444; border-radius: 6px; cursor: pointer; }
+.station-btn.active { background: #d4af37; color: #000; }
+.waiter-card { background: #1a1a2e; padding: 1rem; margin: 1rem 0; border-radius: 8px; }
+.delivery-item { margin: 0.5rem 0; display: flex; justify-content: space-between; align-items: center; }
+.refire-req { background: #f87171; color: #000; padding: 0.5rem; margin: 0.5rem 0; border-radius: 6px; }
+.qc-card { background: #22c55e; color: #000; padding: 1rem; margin: 1rem 0; border-radius: 8px; border: 2px solid #16a34a; }
+
+.kitchen-container {
+  padding: 20px;
+  background: #0a0a0a;
+  min-height: 100vh;
+}
+
+#chef-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.chef-box {
+  background: #111;
+  border: 3px solid #d4af37;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+}
+
+.chef-header {
+  background: #d4af37;
+  color: black;
+  padding: 12px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.task-list {
+  padding: 10px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.task {
+  background: #1a1a2e;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #444;
+  font-size: 0.9em;
+}
+
+.task.cooking { border-left: 4px solid #f87171; }
+.task .timer { font-weight: bold; color: #4ade80; }
+
+.task button {
+  margin: 5px 3px 0 0;
+  padding: 6px 12px;
+  font-size: 0.8em;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.task button:first-of-type { background: #22c55e; color: white; }
+.task button:last-of-type { background: #3b82f6; color: white; }
+
+.empty {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+  font-style: italic;
+}

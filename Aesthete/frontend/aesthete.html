@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AESTHETE — Retro Music Explorer</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Mono&display=swap');
+    :root {
+      --bg: #0b0b0b;
+      --panel: #111;
+      --muted: #b3b3b3;
+      --accent: #00ffd0;
+      --glass: rgba(17,17,17,0.86);
+      --toast-bg: rgba(20,20,20,0.96);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--bg);color:#eee;font-family:'IBM Plex Mono',monospace}
+    header,footer{text-align:center;padding:14px 12px}
+    h1{font-family:'Press Start 2P',monospace;font-size:1.3rem;margin:0}
+    .subtitle{color:var(--muted);margin-top:6px;font-size:.88rem}
+    main{max-width:1100px;margin:14px auto;padding:0 12px}
+    .card{background:var(--panel);border-radius:10px;padding:12px;border:1px solid rgba(255,255,255,0.03)}
+    #controls{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:10px}
+    .btn-row{display:flex;gap:10px;flex-wrap:wrap}
+    button{background:transparent;border:1px solid #333;padding:10px 14px;border-radius:8px;color:#eaeaea;cursor:pointer}
+    button:hover{transform:translateY(-3px)}
+    .hint{color:var(--muted);font-size:.85rem;margin-top:6px}
+    #vinyl-stage{position:relative;width:100%;aspect-ratio:16/9;max-width:980px;margin:12px auto;border-radius:14px;overflow:hidden;border:1px solid #222;box-shadow:0 10px 40px rgba(0,0,0,.6);background:#000}
+    #vinyl-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+    #now-playing{position:absolute;right:18px;bottom:18px;width:360px;background:var(--glass);border-radius:12px;padding:12px;display:flex;gap:12px;align-items:center;border:1px solid rgba(255,255,255,0.04);backdrop-filter:blur(4px)}
+    #now-playing.hidden{display:none}
+    #now-playing img{width:84px;height:84px;object-fit:cover;border-radius:8px;border:1px solid #2b2b2b}
+    #now-playing h2{margin:0;font-size:1rem}
+    #now-playing p{margin:0;color:var(--muted);font-size:.85rem}
+    .links a{color:var(--accent);text-decoration:none;font-size:.9rem}
+    .controls-row{display:flex;gap:8px;margin-top:8px}
+    .controls-row button{padding:8px 10px;border-radius:6px}
+    #toast-container{position:fixed;right:20px;bottom:20px;z-index:9999;display:flex;flex-direction:column;gap:10px}
+    .toast{min-width:220px;padding:12px 14px;border-radius:8px;background:var(--toast-bg);color:#fff;box-shadow:0 8px 30px rgba(0,0,0,.5);opacity:0;transform:translateY(12px);transition:opacity .22s,transform .22s}
+    .toast.show{opacity:1;transform:translateY(0)}
+    .toast .title{font-weight:600;margin-bottom:6px}
+    .toast .body{color:#ddd;font-size:.92rem}
+    footer{color:var(--muted);font-size:.85rem}
+    @media (max-width:720px){#now-playing{left:12px;right:12px;width:auto;bottom:12px}#vinyl-stage{aspect-ratio:4/3}}
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>AESTHETE</h1>
+    <div class="subtitle">Retro Music Explorer</div>
+  </header>
+
+  <main id="app">
+    <section id="controls" class="card">
+      <div class="btn-row">
+        <button id="login-btn">Login with Spotify</button>
+        <button class="playlist-btn" data-playlist="english">English</button>
+        <button class="playlist-btn" data-playlist="hindi">Hindi</button>
+        <button class="playlist-btn" data-playlist="classical">Classical</button>
+      </div>
+      <div class="hint">Login to stream full tracks (Spotify Premium required). Previews play otherwise.</div>
+    </section>
+
+    <div id="vinyl-stage" class="card">
+      <video id="vinyl-video"
+             src="https://aesthete-config.s3.ap-south-1.amazonaws.com/vinyl.mov"
+             muted playsinline preload="auto"
+             crossorigin="anonymous"
+             type="video/quicktime"></video>
+
+      <div id="now-playing" class="card hidden" aria-live="polite">
+        <img id="now-img" alt="Album art" src="">
+        <div class="meta">
+          <h2 id="now-title">—</h2>
+          <p id="now-artist">—</p>
+          <p id="now-year">—</p>
+          <div class="links"><a id="open-spotify" href="#" target="_blank" rel="noopener">Open in Spotify</a></div>
+          <div class="controls-row">
+            <button id="pause-resume">Pause</button>
+            <button id="skip">Skip</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="debug" class="card hidden"><pre id="log"></pre></section>
+  </main>
+
+  <footer>© 2025 Aesthete · Built on AWS</footer>
+
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+  (function(){
+    const BASE_API = "https://5oxf7xwna0.execute-api.ap-south-1.amazonaws.com/prod";
+    const REDIRECT_URI = "https://1ladybug.com/projects/aesthete";
+
+    const loginBtn = document.getElementById("login-btn");
+    const playlistBtns = document.querySelectorAll(".playlist-btn");
+    const vinylVideo = document.getElementById("vinyl-video");
+    const nowCard = document.getElementById("now-playing");
+    const nowImg = document.getElementById("now-img");
+    const nowTitle = document.getElementById("now-title");
+    const nowArtist = document.getElementById("now-artist");
+    const nowYear = document.getElementById("now-year");
+    const openSpotify = document.getElementById("open-spotify");
+    const pauseResumeBtn = document.getElementById("pause-resume");
+    const skipBtn = document.getElementById("skip");
+    const toastContainer = document.getElementById("toast-container");
+
+    let userAccessToken = null;
+    let userRefreshToken = null;
+    let userExpiresAt = 0;
+    let isPremiumUser = false;
+
+    let spotifyPlayer = null;
+    let playbackDeviceId = null;
+
+    let currentTrack = null;
+    let currentAudio = null;
+
+    let queuedPlaylist = null;
+    let autoNextTimeout = null;
+    let pollInterval = null;
+
+    function toast(title, body = "", ms = 3000) {
+      const t = document.createElement("div");
+      t.className = "toast";
+      t.innerHTML = `<div class="title">${escapeHtml(title)}</div><div class="body">${escapeHtml(body)}</div>`;
+      toastContainer.appendChild(t);
+      requestAnimationFrame(()=>t.classList.add("show"));
+      if (ms>0) setTimeout(()=>{ t.classList.remove("show"); setTimeout(()=>t.remove(),300); }, ms);
+      return t;
+    }
+    function escapeHtml(s=""){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c])); }
+
+    window.onSpotifyWebPlaybackSDKReady = () => {
+      window.__spotifySDKReady = true;
+    };
+
+    function loadSpotifySDK() {
+      return new Promise((resolve) => {
+        if (window.__spotifySDKReady && window.Spotify) return resolve();
+        if (!document.getElementById("spotify-sdk")) {
+          const s = document.createElement("script");
+          s.id = "spotify-sdk";
+          s.src = "https://sdk.scdn.co/spotify-player.js";
+          s.async = true;
+          document.head.appendChild(s);
+        }
+        const check = setInterval(()=>{
+          if (window.__spotifySDKReady && window.Spotify) {
+            clearInterval(check);
+            resolve();
+          }
+        },50);
+      });
+    }
+
+    async function getAuthUrl() {
+      const res = await fetch(`${BASE_API}/auth/url?redirect_uri=${encodeURIComponent(REDIRECT_URI)}`);
+      const j = await res.json();
+      return j.url;
+    }
+
+    loginBtn.addEventListener("click", async ()=>{
+      try {
+        const url = await getAuthUrl();
+        window.location.href = url;
+      } catch (e) {
+        toast("Login failed", e.message || "");
+      }
+    });
+
+    async function handleRedirect() {
+      const qp = new URLSearchParams(location.search);
+      const code = qp.get("code");
+      if (!code) return;
+      try {
+        const res = await fetch(`${BASE_API}/auth/exchange`, {
+          method: "POST", headers: {"Content-Type":"application/json"},
+          body: JSON.stringify({ code, redirect_uri: REDIRECT_URI })
+        });
+        const j = await res.json();
+        userAccessToken = j.access_token;
+        userRefreshToken = j.refresh_token;
+        userExpiresAt = Date.now() + (j.expires_in * 1000);
+        localStorage.setItem("aesthete_tokens", JSON.stringify({ access:userAccessToken, refresh:userRefreshToken, expire:userExpiresAt }));
+        toast("Logged in", "Spotify authentication successful.");
+        history.replaceState({}, "", location.pathname);
+      } catch (err) {
+        console.error("exchange failed", err);
+        toast("Login error", err.message || "");
+      }
+    }
+
+    async function restoreTokens() {
+      try {
+        const raw = localStorage.getItem("aesthete_tokens");
+        if (!raw) return;
+        const obj = JSON.parse(raw);
+        userAccessToken = obj.access; userRefreshToken = obj.refresh; userExpiresAt = obj.expire;
+        if (Date.now() > userExpiresAt - 5000 && userRefreshToken) {
+          await refreshToken();
+        }
+        if (userAccessToken) {
+          await initSpotifyPlayer();
+          await checkPremiumStatus();
+        }
+      } catch(e){ console.warn("restoreTokens",e); }
+    }
+
+    async function refreshToken(){
+      try {
+        const res = await fetch(`${BASE_API}/auth/refresh`, { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ refresh_token: userRefreshToken }) });
+        const j = await res.json();
+        userAccessToken = j.access_token;
+        userExpiresAt = Date.now() + (j.expires_in * 1000);
+        localStorage.setItem("aesthete_tokens", JSON.stringify({ access:userAccessToken, refresh:userRefreshToken, expire:userExpiresAt }));
+      } catch(e){ console.warn("refresh failed", e); }
+    }
+
+    async function initSpotifyPlayer(){
+      if (!userAccessToken) return;
+      await loadSpotifySDK();
+      if (spotifyPlayer) {
+        try { await spotifyPlayer.disconnect(); } catch(e){}
+        spotifyPlayer = null;
+      }
+      spotifyPlayer = new Spotify.Player({
+        name: "Aesthete Vinyl Player",
+        getOAuthToken: cb => { cb(userAccessToken); },
+        volume: 0.8
+      });
+      spotifyPlayer.addListener("ready", ({ device_id })=>{
+        playbackDeviceId = device_id;
+        toast("Player ready","Web Playback SDK connected.");
+      });
+      spotifyPlayer.addListener("not_ready", ({ device_id })=>{
+        toast("Player offline","Device disconnected.");
+      });
+      spotifyPlayer.addListener("player_state_changed", (state)=>{
+        if (!state) return;
+        try {
+          const playing = !state.paused;
+          pauseResumeBtn.textContent = playing ? "Pause" : "Resume";
+        } catch(e){}
+      });
+      await spotifyPlayer.connect();
+    }
+
+    async function checkPremiumStatus(){
+      if (!userAccessToken) return;
+      try {
+        const res = await fetch("https://api.spotify.com/v1/me", { headers:{ Authorization:`Bearer ${userAccessToken}` }});
+        if (!res.ok) return;
+        const j = await res.json();
+        isPremiumUser = j.product === "premium";
+        if (!isPremiumUser) toast("Premium required","Spotify Premium needed for full playback.");
+        else toast("Premium account","Full playback enabled.");
+      } catch(e){ console.warn("checkPremium",e); }
+    }
+
+    async function fetchRandomTrack(playlist) {
+      const res = await fetch(`${BASE_API}/song?playlist=${playlist}`);
+      if (!res.ok) throw new Error("song API " + res.status);
+      return res.json();
+    }
+
+    function parseTrackId(openUrl){
+      try {
+        const u = new URL(openUrl);
+        const parts = u.pathname.split('/');
+        return parts[parts.length-1].split('?')[0];
+      } catch(e){ return null; }
+    }
+
+    async function startSequence(playlist) {
+      queuedPlaylist = playlist;
+      stopCurrentAudioAndPolling();
+      try {
+        const track = await fetchRandomTrack(playlist);
+        currentTrack = track;
+        nowImg.src = track.image || "";
+        nowTitle.textContent = track.title || "Unknown";
+        nowArtist.textContent = track.artist || "Unknown";
+        nowYear.textContent = track.year || "";
+        openSpotify.href = track.spotify_url || "#";
+        nowCard.classList.remove("hidden");
+
+        try { vinylVideo.currentTime = 0; await vinylVideo.play(); } catch(e){}
+
+        await delay(2200);
+        await delay(1800);
+
+        const trackId = parseTrackId(track.spotify_url);
+
+        if (isPremiumUser && playbackDeviceId && trackId) {
+          await playFullTrack(trackId);
+        } else {
+          await playPreview(track);
+        }
+      } catch (err) {
+        console.error("startSequence err", err);
+        toast("Error", err.message || "Failed to fetch track");
+      }
+    }
+
+    async function playFullTrack(trackId){
+      try {
+        await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${playbackDeviceId}`, {
+          method: "PUT",
+          headers: { "Content-Type":"application/json", Authorization:`Bearer ${userAccessToken}` },
+          body: JSON.stringify({ uris:[`spotify:track:${trackId}`] })
+        });
+        startPollingPlaybackEnd();
+      } catch (e){
+        console.warn("full play failed", e);
+        toast("Playback failed","Falling back to preview.");
+        const t = currentTrack;
+        if (t) await playPreview(t);
+      }
+    }
+
+    async function playPreview(track) {
+      if (!track.preview_url) {
+        toast("No preview available","Tap skip or login with Spotify.");
+        return;
+      }
+      try {
+        currentAudio = new Audio(track.preview_url);
+        currentAudio.crossOrigin = "anonymous";
+        await currentAudio.play();
+        vinylVideo.loop = true;
+        currentAudio.onended = ()=>{
+          vinylVideo.loop = false;
+          scheduleNextAfterGap();
+        };
+      } catch (e) {
+        console.warn("preview play blocked", e);
+        toast("Playback blocked","User gesture required.");
+        scheduleNextAfterGap();
+      }
+    }
+
+    function startPollingPlaybackEnd() {
+      clearInterval(pollInterval);
+      pollInterval = setInterval(async ()=>{
+        try {
+          const res = await fetch("https://api.spotify.com/v1/me/player", { headers:{ Authorization:`Bearer ${userAccessToken}` }});
+          if (!res.ok) return;
+          const j = await res.json();
+          if (!j.is_playing && j.progress_ms && j.item && j.item.duration_ms) {
+            if (j.progress_ms >= (j.item.duration_ms - 800)) {
+              clearInterval(pollInterval);
+              scheduleNextAfterGap();
+            }
+          }
+        } catch(e){}
+      }, 1500);
+    }
+
+    function stopCurrentAudioAndPolling(){
+      if (currentAudio) { try{ currentAudio.pause(); }catch(e){} currentAudio = null; }
+      if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
+      clearTimeout(autoNextTimeout);
+    }
+
+    function scheduleNextAfterGap(){
+      try { vinylVideo.currentTime = 0; vinylVideo.play().catch(()=>{}); } catch(e){}
+      autoNextTimeout = setTimeout(()=> {
+        if (queuedPlaylist) startSequence(queuedPlaylist);
+      }, 4000);
+    }
+
+    pauseResumeBtn.addEventListener("click", async ()=>{
+      if (isPremiumUser && spotifyPlayer) {
+        const state = await spotifyPlayer.getCurrentState();
+        if (!state) return;
+        if (state.paused) {
+          await spotifyPlayer.resume();
+          pauseResumeBtn.textContent = "Pause";
+          try { vinylVideo.play().catch(()=>{}); } catch(e){}
+        } else {
+          await spotifyPlayer.pause();
+          pauseResumeBtn.textContent = "Resume";
+          try { vinylVideo.pause(); } catch(e){}
+        }
+      } else if (currentAudio) {
+        if (currentAudio.paused) {
+          await currentAudio.play().catch(()=>{});
+          pauseResumeBtn.textContent = "Pause";
+          try { vinylVideo.play().catch(()=>{}); } catch(e){}
+        } else {
+          currentAudio.pause();
+          pauseResumeBtn.textContent = "Resume";
+          try { vinylVideo.pause(); } catch(e){}
+        }
+      }
+    });
+
+    skipBtn.addEventListener("click", async ()=>{
+      skipBtn.disabled = true;
+      setTimeout(()=>skipBtn.disabled = false, 1200);
+
+      if (isPremiumUser && userAccessToken) {
+        try {
+          await fetch("https://api.spotify.com/v1/me/player/next", { method:"POST", headers:{ Authorization:`Bearer ${userAccessToken}` } });
+        } catch(e){}
+      }
+      try { vinylVideo.currentTime = 0; vinylVideo.play().catch(()=>{}); } catch(e){}
+      setTimeout(()=> {
+        if (queuedPlaylist) startSequence(queuedPlaylist);
+      }, 2000);
+    });
+
+    playlistBtns.forEach(btn => btn.addEventListener("click", ()=> startSequence(btn.dataset.playlist)));
+
+    function delay(ms){ return new Promise(res=>setTimeout(res, ms)); }
+
+    (async function init(){
+      await restoreTokens();
+      await handleRedirect();
+      if (userAccessToken) {
+        await initSpotifyPlayer();
+        await checkPremiumStatus();
+      }
+      try { vinylVideo.pause(); vinylVideo.currentTime = 0; } catch(e){}
+    })();
+  })();
+  </script>
+</body>
+</html>

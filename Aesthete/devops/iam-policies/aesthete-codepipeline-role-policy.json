@@ -1,0 +1,12 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    { "Effect":"Allow", "Action": ["codebuild:StartBuild","codebuild:BatchGetBuilds"], "Resource": ["arn:aws:codebuild:*:*:project/aesthete-build"] },
+    { "Effect":"Allow", "Action": ["s3:GetObject","s3:GetObjectVersion","s3:GetBucketVersioning"], "Resource": ["arn:aws:s3:::aesthete-source-artifacts/*"] },
+    { "Effect":"Allow", "Action": ["s3:PutObject","s3:ListBucket"], "Resource": ["arn:aws:s3:::aesthete-frontend/*","arn:aws:s3:::aesthete-frontend"] },
+    { "Effect":"Allow", "Action": ["lambda:UpdateFunctionCode","lambda:InvokeFunction"], "Resource": ["arn:aws:lambda:*:*:function:aesthete-backend"] },
+    { "Effect":"Allow", "Action": ["iam:PassRole"], "Resource": ["arn:aws:iam::*:role/*"] },
+    { "Effect":"Allow", "Action": ["sns:Publish","s3:*","codepipeline:*","codebuild:*"], "Resource": "*" }
+  ]
+}
+

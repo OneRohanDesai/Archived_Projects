@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Executive Chef | The Table V3</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Executive Chef</h1>
+      <nav class="role-nav">
+        <a href="/">Floor</a>
+        <a href="/executive.html" class="active">Chef</a>
+        <a href="/head_chef.html">Head</a>
+      </nav>
+    </header>
+
+    <div class="grid">
+      <div class="panel">
+        <h2>Menu Management</h2>
+        <button onclick="addDish()">+ Add Dish</button>
+        <div id="menu-list"></div>
+      </div>
+      <div class="panel">
+        <h2>Analytics</h2>
+        <div id="analytics"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/socket.js"></script>
+  <script src="/static/js/executive.js"></script>
+</body>
+</html>

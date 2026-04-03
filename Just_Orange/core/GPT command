@@ -1,0 +1,10 @@
+GPT command
+
+curl https://api.openai.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: api key" \
+  -d '{
+    "model": "gpt-4o-mini",
+    "messages": [{"role": "user", "content": "Using only: tomato,rice,egg. Short spicy recipe. Prep 10min, eat 5min. Skip nuts/onion. Output: Ingredients (quantities):\n- item1 qty\n- item2 qty\nSteps:\n1. step1\n2. step2"}],
+    "max_tokens": 150
+  }'

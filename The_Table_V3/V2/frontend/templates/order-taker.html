@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html><head>
+  <title>Order Taker</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head><body>
+<div class="container">
+  <header><h1>Take Order</h1></header>
+
+  <form id="order-form">
+    <select id="table" required>
+      <option value="">Select Table</option>
+    </select>
+
+    <div id="menu-items"></div>
+
+    <button type="submit" class="btn btn-primary">Submit Order</button>
+  </form>
+</div>
+
+<script src="/static/js/ws.js"></script>
+<script src="/static/js/order-taker.js"></script>
+</body></html>

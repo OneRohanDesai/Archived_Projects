@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: the-table-v3
+  namespace: thetable
+  labels:
+    app: the-table
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: the-table
+  template:
+    metadata:
+      labels:
+        app: the-table
+    spec:
+      containers:
+      - name: app
+        image: the-table-v3:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - name: data
+          mountPath: /app/data
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: data
+        hostPath:
+          path: /home/youruser/The_Table_V3/data
+          type: Directory

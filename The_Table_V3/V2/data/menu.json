@@ -1,0 +1,37 @@
+[
+  {
+    "id": "dosa-masala",
+    "name": "Masala Dosa",
+    "price": 120,
+    "specialty": "dosa",
+    "prep_time_sec": 180
+  },
+  {
+    "id": "dosa-plain",
+    "name": "Plain Dosa",
+    "price": 90,
+    "specialty": "dosa",
+    "prep_time_sec": 120
+  },
+  {
+    "id": "idli-sambar",
+    "name": "Idli with Sambar",
+    "price": 80,
+    "specialty": "idli",
+    "prep_time_sec": 90
+  },
+  {
+    "id": "vada",
+    "name": "Medu Vada",
+    "price": 60,
+    "specialty": "vada",
+    "prep_time_sec": 120
+  },
+  {
+    "id": "coffee",
+    "name": "Filter Coffee",
+    "price": 40,
+    "specialty": "beverage",
+    "prep_time_sec": 60
+  }
+]

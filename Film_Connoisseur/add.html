@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="velvet">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Add Movie | Film Connoisseur</title>
+  <meta name="cf-fonts" content="off">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://cdn.film-connoisseur.rohandesai.in">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo-crest">◈</div>
+      <div>
+        <h1 class="brand-title">FILM<br>CONNOISSEUR</h1>
+      </div>
+    </div>
+    <nav class="topnav">
+      <div class="suggest-box">
+        <button id="mailBtn" class="suggest-btn" title="Send suggestion"></button>
+      </div>
+      <a href="index.html" class="nav-link">Gallery</a>
+      <a href="ranked.html" class="nav-link">Ranked</a>
+      <a href="add.html" class="nav-link active">Add Movie</a>      
+      <button id="hamburger3" class="hamburger" aria-label="Toggle menu">☰</button>
+    </nav>
+  </header>
+  <main id="app" class="main">
+  </main>
+  <template id="add-form-template">
+    <form id="movieForm" class="add-form" novalidate>
+      <h2 class="form-title serif">Add a New Film</h2>
+      <div class="form-row">
+        <input id="title" name="title" required placeholder="Title" />
+        <input id="year" name="year" type="number" min="1888" max="2099" required placeholder="Year" />
+      </div>
+      <input id="director" name="director" required placeholder="Director" />
+      <div class="score-wrap">
+        <div class="score-circle" id="scoreCircle" aria-hidden="true">
+          <svg viewBox="0 0 36 36">
+            <path class="bg" d="M18 2.0845a15.9155 15.9155 0 1 0 0 31.831 15.9155 15.9155 0 1 0 0-31.831"/>
+            <path class="meter" id="meterPath" stroke-dasharray="0,100" d="M18 2.0845a15.9155 15.9155 0 1 0 0 31.831 15.9155 15.9155 0 1 0 0-31.831"/>
+            <text x="50%" y="52%" text-anchor="middle" id="liveScore">--</text>
+          </svg>
+        </div>
+        <div class="sliders">
+          <label>Story <input class="rating-input" id="rStory" type="number" min="0" max="10" step="0.1" value="8" /></label>
+          <label>Direction <input class="rating-input" id="rDirection" type="number" min="0" max="10" step="0.1" value="9" /></label>
+          <label>Cinematography <input class="rating-input" id="rCine" type="number" min="0" max="10" step="0.1" value="8.5" /></label>
+          <label>Acting <input class="rating-input" id="rActing" type="number" min="0" max="10" step="0.1" value="8" /></label>
+          <label>Sound <input class="rating-input" id="rSound" type="number" min="0" max="10" step="0.1" value="7.5" /></label>
+        </div>
+      </div>
+      <div class="weights-row">
+        <label>Story <input id="wStory" type="number" min="0" max="100" value="20" />%</label>
+        <label>Direction <input id="wDirection" type="number" min="0" max="100" value="30" />%</label>
+        <label>Cinematography <input id="wCine" type="number" min="0" max="100" value="25" />%</label>
+        <label>Acting <input id="wActing" type="number" min="0" max="100" value="15" />%</label>
+        <label>Sound <input id="wSound" type="number" min="0" max="100" value="10" />%</label>
+      </div>
+      <div id="dropzone" class="dropzone" tabindex="0" role="button">Drop vertical movie poster here (ideal ~1080×1920, will be scaled)</div>
+      <input type="file" id="fileInput" accept="image/*" hidden />
+      <div id="preview" class="preview"></div>
+      <div class="form-actions">
+        <button type="submit" class="btn">Add Movie</button>
+      </div>
+    </form>
+  </template>
+  <div id="navOverlay3" class="nav-overlay">
+    <nav class="overlay-menu">
+      <a href="index.html">Gallery</a>
+      <a href="ranked.html">Ranked</a>
+      <a href="add.html">Add Movie</a>
+    </nav>
+  </div>
+  <div id="mailModal" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <button class="modal-close" id="mailClose">✕</button>
+      <div class="modal-body" style="flex-direction:column; gap:16px;">
+        <h3 class="serif">Suggest a Movie</h3>
+        <p class="muted">
+          We’d love to hear your movie recommendations! Share the films you believe deserve a place on this platform, and tell us why they stand out—especially in terms of showcasing the art of filmmaking at its finest.<br><br>
+
+          All suggested movies will be added to our review queue. Our team will personally watch each one and aim to include it on the platform as soon as possible.
+        </p>
+        <a 
+          href="mailto:pro.rohandesai@gmail.com?subject=Movie Suggestion&body=Movie:%0D%0A%0D%0AWhy this deserves to be on the list:%0D%0A"
+          class="btn"
+        >
+          Send Email
+        </a>
+      </div>
+    </div>
+  </div>
+  <script>
+    const API_BASE = 'https://film-api.rohandesai98244.workers.dev';
+  </script>
+  <script src="assets/js/add.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const hamburger = document.getElementById('hamburger3');
+      const overlay = document.getElementById('navOverlay3');
+      if (hamburger && overlay) {
+        hamburger.addEventListener('click', () => {
+          const isOpen = overlay.hasAttribute('open');
+          if (isOpen) {
+            overlay.removeAttribute('open');
+          } else {
+            overlay.setAttribute('open', '');
+          }
+        });
+        overlay.addEventListener('click', e => {
+          if (e.target === overlay) {
+            overlay.removeAttribute('open');
+          }
+        });
+        document.addEventListener('keyup', e => {
+          if (e.key === 'Escape') {
+            overlay.removeAttribute('open');
+          }
+        });
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("mailBtn")
+      const modal = document.getElementById("mailModal")
+      const close = document.getElementById("mailClose")
+
+      if (!btn || !modal || !close) return
+
+      btn.addEventListener("click", () => {
+        modal.setAttribute("aria-hidden", "false")
+      })
+
+      close.addEventListener("click", () => {
+        modal.setAttribute("aria-hidden", "true")
+      })
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.setAttribute("aria-hidden", "true")
+        }
+      })
+
+      document.addEventListener("keyup", (e) => {
+        if (e.key === "Escape") {
+          modal.setAttribute("aria-hidden", "true")
+        }
+      })
+    })
+  </script>
+</body>
+</html>

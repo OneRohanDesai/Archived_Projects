@@ -1,0 +1,402 @@
+[
+  {
+    "id": "t01",
+    "number": "Table 1",
+    "seats": 4,
+    "status": "occupied",
+    "pax": 2,
+    "occupied_since": "2025-10-30T08:21:54.668Z"
+  },
+  {
+    "id": "t02",
+    "number": "Table 2",
+    "seats": 2,
+    "status": "occupied",
+    "pax": 2,
+    "occupied_since": "2025-10-30T08:28:04.015Z"
+  },
+  {
+    "id": "t03",
+    "number": "Table 3",
+    "seats": 6,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t04",
+    "number": "Table 4",
+    "seats": 4,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t05",
+    "number": "Table 5",
+    "seats": 2,
+    "status": "occupied",
+    "pax": 2,
+    "occupied_since": "2025-11-06T06:01:55.307Z"
+  },
+  {
+    "id": "t06",
+    "number": "Table 6",
+    "seats": 8,
+    "status": "occupied",
+    "pax": 4,
+    "occupied_since": "2025-11-06T06:33:12.830Z"
+  },
+  {
+    "id": "t07",
+    "number": "Table 7",
+    "seats": 4,
+    "status": "occupied",
+    "pax": 3,
+    "occupied_since": "2025-10-30T08:05:17.694Z"
+  },
+  {
+    "id": "t08",
+    "number": "Table 8",
+    "seats": 2,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t09",
+    "number": "Table 9",
+    "seats": 6,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t10",
+    "number": "Table 10",
+    "seats": 4,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t11",
+    "number": "Table 11",
+    "seats": 2,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t12",
+    "number": "Table 12",
+    "seats": 8,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t13",
+    "number": "Table 13",
+    "seats": 4,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t14",
+    "number": "Table 14",
+    "seats": 2,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t15",
+    "number": "Table 15",
+    "seats": 6,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t16",
+    "number": "Table 16",
+    "seats": 4,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t17",
+    "number": "Table 17",
+    "seats": 2,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t18",
+    "number": "Table 18",
+    "seats": 8,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t19",
+    "number": "Table 19",
+    "seats": 4,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t20",
+    "number": "Table 20",
+    "seats": 2,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t21",
+    "number": "Table 21",
+    "seats": 6,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t22",
+    "number": "Table 22",
+    "seats": 4,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t23",
+    "number": "Table 23",
+    "seats": 2,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t24",
+    "number": "Table 24",
+    "seats": 8,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t25",
+    "number": "Table 25",
+    "seats": 4,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t26",
+    "number": "Table 26",
+    "seats": 2,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t27",
+    "number": "Table 27",
+    "seats": 6,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t28",
+    "number": "Table 28",
+    "seats": 4,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t29",
+    "number": "Table 29",
+    "seats": 2,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t30",
+    "number": "Table 30",
+    "seats": 8,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t31",
+    "number": "Table 31",
+    "seats": 4,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t32",
+    "number": "Table 32",
+    "seats": 2,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t33",
+    "number": "Table 33",
+    "seats": 6,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t34",
+    "number": "Table 34",
+    "seats": 4,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t35",
+    "number": "Table 35",
+    "seats": 2,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t36",
+    "number": "Table 36",
+    "seats": 8,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t37",
+    "number": "Table 37",
+    "seats": 4,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t38",
+    "number": "Table 38",
+    "seats": 2,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t39",
+    "number": "Table 39",
+    "seats": 6,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t40",
+    "number": "Table 40",
+    "seats": 4,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t41",
+    "number": "Table 41",
+    "seats": 2,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t42",
+    "number": "Table 42",
+    "seats": 8,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t43",
+    "number": "Table 43",
+    "seats": 4,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t44",
+    "number": "Table 44",
+    "seats": 2,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t45",
+    "number": "Table 45",
+    "seats": 6,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t46",
+    "number": "Table 46",
+    "seats": 4,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t47",
+    "number": "Table 47",
+    "seats": 2,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t48",
+    "number": "Table 48",
+    "seats": 8,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t49",
+    "number": "Table 49",
+    "seats": 4,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  },
+  {
+    "id": "t50",
+    "number": "Table 50",
+    "seats": 2,
+    "status": "vacant",
+    "pax": 0,
+    "occupied_since": null
+  }
+]

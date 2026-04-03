@@ -1,0 +1,30 @@
+[
+  {
+    "id": "m1",
+    "name": "Grilled Atlantic Salmon",
+    "category": "Main",
+    "price": 42,
+    "prep_strategy": [
+      {
+        "task": "Grill salmon",
+        "duration": 300,
+        "role": "grill_chef"
+      },
+      {
+        "task": "Sauté asparagus",
+        "duration": 180,
+        "role": "saute_chef"
+      },
+      {
+        "task": "Make sauce",
+        "duration": 120,
+        "role": "sauce_chef"
+      },
+      {
+        "task": null,
+        "duration": null,
+        "role": null
+      }
+    ]
+  }
+]

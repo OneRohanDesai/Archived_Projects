@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Restaurant Simulator</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Restaurant Simulator</h1>
+      <p class="subtitle">Real-time restaurant operations • 60x speed</p>
+    </header>
+
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="label">Tables Occupied</div>
+        <div class="value"><span id="occupied">0</span><small>/32</small></div>
+      </div>
+      <div class="stat">
+        <div class="label">Pending Orders</div>
+        <div class="value" id="pending">0</div>
+      </div>
+      <div class="stat">
+        <div class="label">Chefs Active</div>
+        <div class="value"><span id="chefs-busy">0</span><small>/5</small></div>
+      </div>
+      <div class="stat">
+        <div class="label">Waiters Active</div>
+        <div class="value"><span id="waiters-busy">0</span><small>/8</small></div>
+      </div>
+    </div>
+
+    <div class="restaurant">
+      <!-- Order Takers -->
+      <section class="zone order-takers">
+        <h3>Order Takers</h3>
+        <div id="order-takers" class="staff-grid"></div>
+      </section>
+
+      <!-- Dining Floor -->
+      <section class="zone floor">
+        <h3>Dining Floor</h3>
+        <div id="tables" class="tables-grid"></div>
+      </section>
+
+      <!-- Waiters -->
+      <section class="zone staff">
+        <h3>Waiters</h3>
+        <div id="waiters" class="staff-grid"></div>
+      </section>
+    </div>
+
+    <!-- Chefs below seating -->
+    <section class="zone chefs-horizontal">
+      <h3>Kitchen</h3>
+      <div id="chefs" class="chefs-line"></div>
+    </section>
+
+    <footer class="legend">
+      <span><span class="dot empty"></span> Empty</span>
+      <span><span class="dot deciding"></span> Deciding</span>
+      <span><span class="dot ordered"></span> Ordered</span>
+      <span><span class="dot eating"></span> Eating</span>
+      <span><span class="dot paying"></span> Paying</span>
+    </footer>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

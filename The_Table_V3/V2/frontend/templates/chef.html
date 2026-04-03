@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html><head>
+  <title>Chef - {{specialty}}</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head><body>
+<div class="container">
+  <header><h1>{{specialty}} Chef Station</h1></header>
+  <div id="queue"></div>
+</div>
+<script>
+  const specialty = window.location.pathname.split('/').pop();
+  document.title = `Chef - ${specialty}`;
+</script>
+<script src="/static/js/ws.js"></script>
+<script src="/static/js/chef.js"></script>
+</body></html>
