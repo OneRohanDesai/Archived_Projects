@@ -1,12 +1,10 @@
 # Archived Projects
 
 <p align="center">
-  <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnUxcmlpZWV3bTRqMXAxaXBneXo1Z2t0aXNtbTVyaDhnMzNwYmhwNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/HhtKuf7mzVIfApT0mo/giphy.gif" width="600"/>
+  <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnUxcmlpZWV3bTRqMXAxaXBneXo1Z2t0aXNtbTVyaDhnMzNwYmhwNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/HhtKuf7mzVIfApT0mo/giphy.gif" width="400"/>
 </p>
 
-> Building. Breaking. Scaling. Archiving.
-
-A consolidated repository of past projects built to explore and demonstrate technical skills.  
+A consolidated repository of past projects built to explore and demonstrate my technical skills.  
 All projects are no longer actively maintained.
 
 ---
@@ -23,7 +21,7 @@ Cloud, DevOps & SRE Engineer
 
 ## Stack
 
-`AWS` `Docker` `Kubernetes` `Terraform` `Linux` `Node.js` `Python` `CI/CD`
+`DevOps` `Kubernetes` `AWS` `SRE` `Terraform` `Linux` `Python` `CI/CD`
 
 ---
 
@@ -32,19 +30,21 @@ Cloud, DevOps & SRE Engineer
 | Project            | Status                          |
 |--------------------|---------------------------------|
 | Gaia               | Completed, discontinued         |
-| Film Connoisseur   | Discontinued (was live)         |
+| Film Connoisseur   | Discontinued but LIVE           |
 | Nexu               | Completed, discontinued         |
 | Aesthete           | Discontinued                    |
 | Nyx Cloud          | Patent filed (pending)          |
 | Just Orange        | Discontinued                    |
 | The Table V3       | Discontinued                    |
 
+> Film Connoisseur is LIVE at https://www.film-connoisseur.rohandesai.in/
+
 ---
 
 ## Why this exists
 
 This repository is an archive of experiments, shipped ideas, and abandoned iterations.  
-It reflects hands-on exploration across cloud infrastructure, system design, and product development.
+It reflects hands-on exploration across kubernetes, devops tools, cloud infrastructure, system design, and product development.
 
 ---
 
@@ -60,12 +60,12 @@ Some documentation may be incomplete due to changes made near project terminatio
 
 ## State of these projects
 
+All projects here are archived.
+Some worked well. Some failed fast. All taught something.
+
 <p align="center">
   <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjdld2VsbHBibnoyZzBpMDBxM3MzNmQxOTdzN3R1bjI4bXB2eW9rYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WjSD2SNQmO1Pi/giphy.gif" width="400"/>
 </p>
-
-All projects here are archived.
-Some worked well. Some failed fast. All taught something.
 
 ---
 
