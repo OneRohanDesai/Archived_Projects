@@ -29,6 +29,7 @@ Cloud, DevOps & SRE Engineer
 
 | Project            | Status                          |
 |--------------------|---------------------------------|
+| Olive              | Under development               |
 | Gaia               | Completed, discontinued         |
 | Film Connoisseur   | Discontinued but LIVE           |
 | Nexu               | Completed, discontinued         |
@@ -37,6 +38,7 @@ Cloud, DevOps & SRE Engineer
 | Just Orange        | Discontinued                    |
 | The Table V3       | Discontinued                    |
 
+> Olive project is located in gitlab, you can view it's code at https://gitlab.com/olive-simulator
 > Film Connoisseur is LIVE at https://www.film-connoisseur.rohandesai.in/
 
 ---
@@ -60,7 +62,7 @@ Some documentation may be incomplete due to changes made near project terminatio
 
 ## State of these projects
 
-All projects here are archived.
+Almost all projects here are archived.
 Some worked well. Some failed fast. All taught something.
 
 <p align="center">
